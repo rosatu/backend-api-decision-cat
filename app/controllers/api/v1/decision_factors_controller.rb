@@ -10,8 +10,8 @@ class Api::V1::DecisionFactorsController < ApplicationController
  end
 
  def decide
-   @pros = params[:pros].map{|proObj|proObj["weight"]}.inject(0, :+).to_f
-   @cons = params[:cons].map{|proObj|proObj["weight"]}.inject(0, :+).to_f
+   @pros = (params[:pros].values.inject(0, :+).round(2)) + (params[:pros].values.length*3/10.to_f)
+   @cons = (params[:cons].values.inject(0, :+).round(2)) + (params[:cons].values.length*3/10.to_f)
    @all = @pros + @cons.to_f
    @percentage_pro_float = @pros / @all.to_f
    @percentage_pro_integer = @percentage_pro_float * 100
